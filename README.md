@@ -54,7 +54,7 @@ sudo apt-get install git
 
 ```shell
 git clone https://github.com/wzpan/wukong-starter.git
-cd wukong-starter/install
+cd wukong-starter
 sh ./install.sh
 ```
 
