@@ -60,9 +60,8 @@ sh ./install.sh
 
 ## 整体说明
 
-1. 安装目录位于 `~/wukong-starter/` 。
-2. 默认使用阿里云的源进行安装，如有问题请切换到 github 源进行安装。
-3. 运行后如果出现 **No module named 'xxx’** 可能是有 pip3 的网络原因引起的，请切换到 ~/wukong-starter/ 目录后执行以下命令:
+1. 如果使用遇到问题，可以到 [issue 页](https://github.com/wzpan/wukong-starter/issues) 提交反馈。
+2. 运行后如果出现 **No module named 'xxx’** 可能是有 pip3 的网络原因引起的，请切换到 ~/wukong-starter/ 目录后执行以下命令:
 
 ```shell
 sudo pip3 install -r requirements.txt 
