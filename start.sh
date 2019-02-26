@@ -1,2 +1,2 @@
 #!/bin/bash
-source wukong/bin/activate
+source env/bin/activate
