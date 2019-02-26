@@ -1,6 +1,6 @@
 #!/bin/bash
 
-check_and_install_python{
+function check_and_install_python {
     if ! command -v python3 >/dev/null; then
         echo "准备安装python3"
         if command -v apt-get >/dev/null; then
