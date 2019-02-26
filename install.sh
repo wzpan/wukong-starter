@@ -28,7 +28,7 @@ function check_and_install_python {
     fi
 }
 
- "---------- 欢迎使用 wukong-starter 一键安装脚本 ----------"
+echo "---------- 欢迎使用 wukong-starter 一键安装脚本 ----------"
 system=$(uname -a)
 os_name=(${system// / })
 if [ ${os_name[0]} == "Darwin" ]
