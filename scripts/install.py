@@ -31,6 +31,9 @@ def execute_commands(command_list, cache_list):
                 res = subprocess.call([cmd], shell=True, cwd=cwd)
                 if res != 0:
                     logging.error("错误：命令 {} 执行失败！".format(command))
+                    # 写入缓存
+                    with open(os.path.join(ROOT, '.install_cache'), 'w') as f:
+                        f.write('\n'.join(new_cache_list))
                     return False
                 else:
                     new_cache_list.append(command)

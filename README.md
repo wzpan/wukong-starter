@@ -20,6 +20,8 @@ cd wukong-starter
 ./install.sh
 ```
 
+安装过程中，因为需要安装一些工具，可能会提示你输入 sudo 密码。另外，安装 homebrew 时需要你按回车确认，照做即可。
+
 ## 启动开发环境
 
 ``` bash
