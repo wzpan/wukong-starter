@@ -16,6 +16,7 @@ def execute_commands(command_list, cache_list):
     pwd = cwd
     new_cache_list = []
     stop_cache = False
+    try:
     for i in range(len(command_list)):
         command = command_list[i].strip()
         if i < len(cache_list) and \
@@ -43,9 +44,12 @@ def execute_commands(command_list, cache_list):
             else:
                 logging.warning('无效命令 {}'.format(command))
                 new_cache_list.append(command)
-    # 写入缓存
-    with open(os.path.join(ROOT, '.install_cache'), 'w') as f:
-        f.write('\n'.join(new_cache_list))
+    except Exception as e:
+        logging.error('错误：{}'.format(e))
+    finally:
+        # 写入缓存
+        with open(os.path.join(ROOT, '.install_cache'), 'w') as f:
+            f.write('\n'.join(new_cache_list))
 
 def install():
     if len(sys.argv) <= 1:
