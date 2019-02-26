@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PWD=`pwd`
+PWD=$(pwd)
 
 install_homebrew(){
     os=$1
@@ -9,12 +9,20 @@ install_homebrew(){
     then        
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     else
+	which apt-get
+	if [[ $? -eq 0 ]]
+	then
+	    sudo apt-get install -y build-essential curl file git
+	else
+	    sudo yum groupinstall 'Development Tools' && sudo yum install curl file git
+	fi
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
         test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
         test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
         test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
         echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
     fi
+    
 }
 
 install_starter(){

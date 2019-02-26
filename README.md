@@ -12,50 +12,13 @@
 * Mac OS X
 * Windows 10 上的 WSL（Windows Subsystem for Linux）
 
-## 依赖 ##
-
-在使用本工具前，请先安装好依赖。不同的系统，在执行本工具前，依赖的不同。
-
-### Mac OS X ###
-
-* homebrew
-
-``` bash
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-* git
-
-``` bash
-brew install git
-```
-
-### Ubuntu ###
-
-* git
-
-``` bash
-sudo apt-get install git
-```
-
-### WSL ###
-
-* git
-
-``` bash
-sudo apt-get install git
-```
-
-* pulseaudio-server
-
-下载解压 [pulseaudio.zip](http://hahack-1253537070.file.myqcloud.com/misc/pulseaudio.zip) 并在 CMD 里运行 bin 目录下的 pulseaudio.exe 。
 
 ## 用法
 
 ```shell
 git clone https://github.com/wzpan/wukong-starter.git
 cd wukong-starter
-sh ./install.sh
+./install.sh
 ```
 
 ## 整体说明
@@ -73,3 +36,4 @@ sudo pip3 install -r requirements.txt
 sudo pip3 install --upgrade --ignore-installed -r requirements.txt
 ```
 
+下载解压 [pulseaudio.zip](http://hahack-1253537070.file.myqcloud.com/misc/pulseaudio.zip) 并在 CMD 里运行 bin 目录下的 pulseaudio.exe 。
