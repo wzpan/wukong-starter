@@ -2,7 +2,7 @@
 
 用于给 wukong-robot 提供一个初始化的教学用开发环境。
 
-主要借鉴了 docker 的思想以及 [musistudio/wukong-robot-install-script](https://github.com/musistudio/wukong-robot-install-script)，但去除了 wukong-robot 本体缓存。要安装 wukong-robot 的朋友请移步使用他的工具。
+主要借鉴了 docker 的思想以及 [musistudio/wukong-robot-install-script](https://github.com/musistudio/wukong-robot-install-script)，但去除了 wukong-robot 本体。要安装 wukong-robot 的朋友请移步使用他的工具。
 
 ## 适用系统 ##
 
