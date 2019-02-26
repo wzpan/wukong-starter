@@ -30,7 +30,7 @@ def execute_commands(command_list, cache_list):
                 cmd = command[4:].strip().replace('$PWD', pwd).replace('${PWD}', pwd)
                 res = subprocess.call([cmd], shell=True, cwd=cwd)
                 if res != 0:
-                    logger.error("错误：命令 {} 执行失败！".format(command))
+                    logging.error("错误：命令 {} 执行失败！".format(command))
                     return False
                 else:
                     new_cache_list.append(command)
