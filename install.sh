@@ -8,6 +8,11 @@ install_homebrew(){
     if [[ $os == "macos" ]]
     then        
         /usr/bin/ruby -e "$(curl -fsSL https://hahack-1253537070.file.myqcloud.com/misc/homebrew/mac/install)"
+        if [[ $? -eq 0 ]]
+        then
+            echo "错误：homebrew 安装失败！"
+            exit 1        
+        fi
     else
 	    which apt-get
 	    if [[ $? -eq 0 ]]
@@ -17,6 +22,11 @@ install_homebrew(){
 	        sudo yum groupinstall 'Development Tools' && sudo yum install curl file git
 	    fi
         sh -c "$(curl -fsSL https://hahack-1253537070.file.myqcloud.com/misc/homebrew/linux/linux.sh)"
+        if [[ $? -eq 0 ]]
+        then
+            echo "错误：homebrew 安装失败！"
+            exit 1        
+        fi
         test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
         test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
         test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
