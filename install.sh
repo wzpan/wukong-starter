@@ -7,7 +7,7 @@ install_homebrew(){
     echo "正在为您安装homebrew"
     if [[ $os == "macos" ]]
     then        
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        /usr/bin/ruby -e "$(curl -fsSL https://hahack-1253537070.file.myqcloud.com/misc/homebrew/mac/install)"
     else
 	which apt-get
 	if [[ $? -eq 0 ]]
@@ -16,29 +16,41 @@ install_homebrew(){
 	else
 	    sudo yum groupinstall 'Development Tools' && sudo yum install curl file git
 	fi
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+        sh -c "$(curl -fsSL https://hahack-1253537070.file.myqcloud.com/misc/homebrew/linux/linuxbrew.sh)"
         test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
         test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
         test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
         echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
     fi
-    
+    # 更换 homebrew 镜像源
+    cd "$(brew --repo)"
+    git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+    cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+    git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+    brew update
+    echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
+    source ~/.bash_profile
 }
 
 install_starter(){
     echo "正在为您安装wukong-starter"
-    brew install portaudio sox ffmpeg swig
-    sudo pip3 install --upgrade pip
-    sudo pip3 install pyaudio
+    brew install portaudio sox ffmpeg swig python3    
+    pip3 install --upgrade pip
+    pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    pip3 install virtualenv
+    cd ${PWD}
+    # 创建一个名为 wukong 的 virtualenv
+    virtualenv --no-site-packages wukong
+    pip3 install pyaudio
+    # 安装其他依赖
     cd ~
     wget http://hahack-1253537070.file.myqcloud.com/misc/snowboy.tar.bz2
     tar -xvjf snowboy.tar.bz2
     rm snowboy.tar.bz2
     cd ~/snowboy/swig/Python3
     make
-    sudo cp _snowboydetect.so ${PWD}/snowboy/
-    sudo rm -rf ~/snowboy
-    sudo chmod -R 777 ${PWD}
+    cp _snowboydetect.so ${PWD}/snowboy/
+    rm -rf ~/snowboy
 clear
 echo "wukong-starter 已安装完成!"
 

@@ -36,4 +36,8 @@ sudo pip3 install -r requirements.txt
 sudo pip3 install --upgrade --ignore-installed -r requirements.txt
 ```
 
+## Windows 用户说明
+
+在执行本脚本前，你需要先启动 pulseaudio-server 。
+
 下载解压 [pulseaudio.zip](http://hahack-1253537070.file.myqcloud.com/misc/pulseaudio.zip) 并在 CMD 里运行 bin 目录下的 pulseaudio.exe 。
