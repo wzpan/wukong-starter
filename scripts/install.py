@@ -42,7 +42,6 @@ def execute_commands(command_list, cache_list):
                     cwd = command[8:].strip().replace('$PWD', pwd).replace('${PWD}', pwd)
                     new_cache_list.append(command)
                 else:
-                    logging.warning('无效命令 {}'.format(command))
                     new_cache_list.append(command)
     except Exception as e:
         logging.error('错误：{}'.format(e))
@@ -63,9 +62,12 @@ def install():
     cache_list = cache.split('\n')
     if str(t) == '0':
         with open(os.path.join(ROOT, 'linux.txt'), 'r') as f:
-            command_list = f.read().split('\n')
+            command_list = f.read().split('\n')    
     elif str(t) == '1':
         with open(os.path.join(ROOT, 'mac.txt'), 'r') as f:
+            command_list = f.read().split('\n')
+    elif str(t) == '2':
+        with open(os.path.join(ROOT, 'win.txt'), 'r') as f:
             command_list = f.read().split('\n')
     else:
         logging.critical("错误：不支持的系统类型")

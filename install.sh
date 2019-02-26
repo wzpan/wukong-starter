@@ -1,10 +1,9 @@
 #!/bin/bash
 
-function check_and_install_python {
+function check_and_install_python {    
     if ! command -v python3 >/dev/null; then
         echo "准备安装python3"
         if command -v apt-get >/dev/null; then
-            sudo apt-get update
             sudo apt-get install -y python3
             if [[ $? -eq 0 ]]; then
                 echo "安装python3成功"
@@ -41,18 +40,24 @@ then
     else
         python ./scripts/install.py 1
     fi
-elif [[ ${os_name[0]} == "Linux" ]]
+elif [[ ${os_name[0]} == "Linux" && ${os_name[2]} =~ "Microsoft" ]]
 then   
-    read -p "您的系统是否为Linux或者win10子系统? [Y/n]:" confirm    
+    read -p "您的系统是否为win10子系统? [Y/n]:" confirm    
     if [[ ${confirm} != "Y" && ${confirm} != "y" && ${confirm} != "" ]]
     then
         echo "安装失败：系统检测错误，已退出安装"
         exit 1
     else
         check_and_install_python
+        python3 ./scripts/install.py 2
+    fi
+elif [[ ${os_name[0]} == "Linux" && ${os_name[1]} != "raspberrypi" ]]
+then
+    if [[ ${confirm} != "Y" && ${confirm} != "y" && ${confirm} != "" ]]
+    then                                                                  echo "安装失败，系统检测错误，已退出安装，请反馈给作者"
+        exit 1
+    else
+        check_and_install_python
         python3 ./scripts/install.py 0
     fi
-else
-    echo "安装失败：未知系统，已退出安装"
-    exit 1
 fi
