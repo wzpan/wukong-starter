@@ -1,14 +1,12 @@
 RUN echo "正在为您安装homebrew"
-RUN which apt-get && sudo apt-get install -y build-essential curl file git || sudo yum groupinstall 'Development Tools' && sudo yum install curl file git
+RUN if command -v python3 >/dev/null; then sudo apt-get install -y build-essential curl file git; else if command -v yum > /dev/null; then sudo yum groupinstall 'Development Tools' && sudo yum install curl file git; fi
 RUN sh -c "$(curl -fsSL https://hahack-1253537070.file.myqcloud.com/misc/homebrew/linux/linux.sh)"
 RUN test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
 RUN test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 RUN test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
 RUN echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
-WORKDIR "$(brew --repo)"
-RUN git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
-WORKDIR "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
-RUN git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+RUN cd $(brew --repo) && git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+RUN cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" && git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
 RUN brew update
 RUN echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
 RUN source ~/.bash_profile
