@@ -55,10 +55,10 @@ def install():
             cache = f.read()
     cache_list = cache.split('\n')
     if str(t) == '0':
-        with open('linux.txt', 'r') as f:
+        with open(os.path.join(ROOT, 'linux.txt'), 'r') as f:
             command_list = f.read().split('\n')
     elif str(t) == '1':
-        with open('mac.txt', 'r') as f:
+        with open(os.path.join(ROOT, 'mac.txt'), 'r') as f:
             command_list = f.read().split('\n')
     else:
         logging.critical("错误：不支持的系统类型")
