@@ -12,13 +12,18 @@
 * Mac OS X
 * Windows 10 上的 WSL（Windows Subsystem for Linux）
 
+## 安装开发环境
 
-## 用法
-
-```shell
+``` bash
 git clone https://github.com/wzpan/wukong-starter.git
 cd wukong-starter
 ./install.sh
+```
+
+## 启动开发环境
+
+``` bash
+./start.sh
 ```
 
 ## 整体说明

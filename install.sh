@@ -9,13 +9,13 @@ install_homebrew(){
     then        
         /usr/bin/ruby -e "$(curl -fsSL https://hahack-1253537070.file.myqcloud.com/misc/homebrew/mac/install)"
     else
-	which apt-get
-	if [[ $? -eq 0 ]]
-	then
-	    sudo apt-get install -y build-essential curl file git
-	else
-	    sudo yum groupinstall 'Development Tools' && sudo yum install curl file git
-	fi
+	    which apt-get
+	    if [[ $? -eq 0 ]]
+	    then
+	        sudo apt-get install -y build-essential curl file git
+	    else
+	        sudo yum groupinstall 'Development Tools' && sudo yum install curl file git
+	    fi
         sh -c "$(curl -fsSL https://hahack-1253537070.file.myqcloud.com/misc/homebrew/linux/linuxbrew.sh)"
         test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
         test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
@@ -51,8 +51,9 @@ install_starter(){
     make
     cp _snowboydetect.so ${PWD}/snowboy/
     rm -rf ~/snowboy
-clear
-echo "wukong-starter 已安装完成!"
+    
+    clear
+    echo "wukong-starter 已安装完成!"
 
 } 
 
