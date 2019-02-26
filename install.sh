@@ -1,75 +1,34 @@
 #!/bin/bash
 
-PWD=$(pwd)
-
-install_homebrew(){
-    os=$1
-    echo "正在为您安装homebrew"
-    if [[ $os == "macos" ]]
-    then        
-        /usr/bin/ruby -e "$(curl -fsSL https://hahack-1253537070.file.myqcloud.com/misc/homebrew/mac/install)"
-        if [[ $? -eq 0 ]]
-        then
-            echo "错误：homebrew 安装失败！"
-            exit 1        
+check_and_install_python(){
+    if ! command -v python3 >/dev/null; then
+        echo "准备安装python3"
+        if command -v apt-get >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y python3
+            if [[ $? -eq 0 ]]; then
+                echo "安装python3成功"
+            else
+                echo "安装python3失败"
+                exit 1
+            fi
+        elif command -v yum >/dev/null; then
+            sudo yum update
+            sudo yum install -y python3
+            if [[ $? -eq 0 ]]; then
+                echo "安装python3成功"
+            else
+                echo "安装python3失败"
+                exit 1
+            fi
+        else
+            echo "安装python3失败：不支持的系统类型"
+            exit 1
         fi
-    else
-	    which apt-get
-	    if [[ $? -eq 0 ]]
-	    then
-	        sudo apt-get install -y build-essential curl file git
-	    else
-	        sudo yum groupinstall 'Development Tools' && sudo yum install curl file git
-	    fi
-        sh -c "$(curl -fsSL https://hahack-1253537070.file.myqcloud.com/misc/homebrew/linux/linux.sh)"
-        if [[ $? -eq 0 ]]
-        then
-            echo "错误：homebrew 安装失败！"
-            exit 1        
-        fi
-        test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-        test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-        test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
-        echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
     fi
-    # 更换 homebrew 镜像源
-    cd "$(brew --repo)"
-    git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
-    cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
-    git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
-    brew update
-    echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
-    source ~/.bash_profile
 }
 
-install_starter(){
-    echo "正在为您安装wukong-starter"
-    brew install portaudio sox ffmpeg swig python3    
-    pip3 install --upgrade pip
-    pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-    pip3 install virtualenv
-    cd ${PWD}
-    # 创建一个名为 wukong 的 virtualenv
-    virtualenv --no-site-packages wukong
-    pip3 install pyaudio
-    # 安装其他依赖
-    cd ~
-    wget http://hahack-1253537070.file.myqcloud.com/misc/snowboy.tar.bz2
-    tar -xvjf snowboy.tar.bz2
-    rm snowboy.tar.bz2
-    cd ~/snowboy/swig/Python3
-    make
-    cp _snowboydetect.so ${PWD}/snowboy/
-    rm -rf ~/snowboy
-    
-    clear
-    echo "wukong-starter 已安装完成!"
-
-} 
-
-
-clear
-echo "---------- 欢迎使用 wukong-starter 一键安装脚本 ----------"
+ "---------- 欢迎使用 wukong-starter 一键安装脚本 ----------"
 system=$(uname -a)
 os_name=(${system// / })
 if [ ${os_name[0]} == "Darwin" ]
@@ -77,31 +36,23 @@ then
     read -p "您的系统是否为 MacOS? [Y/n]: " confirm
     if [[ ${confirm} != "Y" && ${confirm} != "y" && ${confirm} != "" ]]
     then
-        echo "系统检测错误，已退出安装，请反馈给作者"
+        echo "安装失败：系统检测错误，已退出安装"
         exit
     else
-        install_homebrew "macos"
-        install_starter
+        python ./scripts/install.py 1
     fi
-elif [[ ${os_name[0]} == "Linux" && ${os_name[2]} =~ "Microsoft" ]]
+elif [[ ${os_name[0]} == "Linux" ]]
 then   
-    read -p "您的系统是否为win10子系统? [Y/n]:" confirm    
+    read -p "您的系统是否为Linux或者win10子系统? [Y/n]:" confirm    
     if [[ ${confirm} != "Y" && ${confirm} != "y" && ${confirm} != "" ]]
-    then                 
-        echo "系统检测错误，已退出安装，请反馈给作者"
-        exit
+    then
+        echo "安装失败：系统检测错误，已退出安装"
+        exit 1
     else
-        install_homebrew "win10"
-        install_starter
+        check_and_install_python
+        python3 ./scripts/install.py 0
     fi
-elif [[ ${os_name[0]} == "Linux" && ${os_name[1]} != "raspberrypi" ]]
-then
-    if [[ ${confirm} != "Y" && ${confirm} != "y" && ${confirm} != "" ]]
-    then                                                                                                                   
-        echo "系统检测错误，已退出安装，请反馈给作者"
-        exit
-    else
-        install_homebrew "linux"
-        install_starter
-    fi
+else
+    echo "安装失败：未知系统，已退出安装"
+    exit 1
 fi
