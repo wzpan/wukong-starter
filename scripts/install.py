@@ -54,7 +54,7 @@ def install():
     t = sys.argv[1]
     cache = ""
     if os.path.exists(os.path.join(ROOT, '.install_cache')):
-        with open('.install_cache', 'r') as f:
+        with open(os.path.join(ROOT, '.install_cache'), 'r') as f:
             cache = f.read()
     cache_list = cache.split('\n')
     if str(t) == '0':
