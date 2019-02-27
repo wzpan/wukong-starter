@@ -54,7 +54,8 @@ then
 elif [[ ${os_name[0]} == "Linux" && ${os_name[1]} != "raspberrypi" ]]
 then
     if [[ ${confirm} != "Y" && ${confirm} != "y" && ${confirm} != "" ]]
-    then                                                                  echo "安装失败，系统检测错误，已退出安装，请反馈给作者"
+    then
+        echo "安装失败，系统检测错误，已退出安装，请反馈给作者"
         exit 1
     else
         check_and_install_python
