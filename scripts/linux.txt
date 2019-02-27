@@ -5,7 +5,7 @@ RUN sudo apt-get install -y build-essential curl file git
 RUN if ! command -v python3 > /dev/null; then sudo apt-get install python3; fi
 RUN if [ ! -d $PWD/temp ]; then mkdir $PWD/temp; fi
 WORKDIR $PWD/temp
-RUN sudo apt-get install python3-pip python3-dev python3-all-dev sox ffmpeg swig
+RUN sudo apt-get install -y python3-pip python3-dev python3-all-dev sox ffmpeg swig
 RUN pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 RUN sudo pip3 install --upgrade pip
 RUN sudo pip3 install virtualenv
