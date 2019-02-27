@@ -3,12 +3,14 @@ RUN sudo sed -i 's/\/archive.ubuntu.com/\/mirrors.aliyun.com/g' /etc/apt/sources
 RUN sudo apt-get update && sudo apt-get upgrade -y
 RUN sudo apt-get install -y build-essential curl file git
 RUN if ! command -v python3 > /dev/null; then sudo apt-get install python3; fi
-RUN sudo apt-get python3-pip python3-dev python3-all-dev portaudio sox ffmpeg swig
+RUN mkdir ~/install_temp
+WORKDIR ~/install_temp
+RUN wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate
+RUN python3 get-pip.py
+RUN sudo apt-get python3-dev python3-all-dev portaudio sox ffmpeg swig
 RUN pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 RUN sudo pip3 install --upgrade pip
 RUN sudo pip3 install virtualenv
-RUN mkdir ~/install_temp
-WORKDIR ~/install_temp
 RUN wget http://hahack-1253537070.file.myqcloud.com/misc/swig-3.0.10.tar.gz
 RUN tar xvf swig-3.0.10.tar.gz
 WORKDIR ~/install_temp/swig-3.0.10

@@ -22,7 +22,10 @@ def execute_commands(command_list, cache_list):
             if i < len(cache_list) and \
                command == cache_list[i] and \
                not stop_cache:
-                logging.info("缓存命令 {}".format(command))
+                if command.startswith('WORKDIR '):
+                    cwd = command[8:].strip().replace('$PWD', pwd).replace('${PWD}', pwd)
+                else:
+                    logging.info("缓存命令 {}".format(command))
                 new_cache_list.append(command)
             else:
                 stop_cache = True
