@@ -46,6 +46,7 @@ def execute_commands(command_list, cache_list):
                     new_cache_list.append(command)
                 else:
                     new_cache_list.append(command)
+        return True
     except Exception as e:
         logging.error('错误：{}'.format(e))
     finally:
