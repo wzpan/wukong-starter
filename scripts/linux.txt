@@ -3,7 +3,7 @@ RUN sudo sed -i 's/\/archive.ubuntu.com/\/mirrors.aliyun.com/g' /etc/apt/sources
 RUN sudo apt-get update && sudo apt-get upgrade -y
 RUN sudo apt-get install -y build-essential curl file git
 RUN if ! command -v python3 > /dev/null; then sudo apt-get install python3; fi
-RUN mkdir $HOME/install_temp
+RUN if [ ! -d $HOME/install_temp ]; then mkdir $HOME/install_temp; fi
 WORKDIR $HOME/install_temp
 RUN wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate
 RUN python3 get-pip.py
