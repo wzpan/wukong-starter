@@ -12,12 +12,15 @@ RUN sudo pip3 install virtualenv
 RUN wget http://hahack-1253537070.file.myqcloud.com/misc/swig-3.0.10.tar.gz
 RUN tar xvf swig-3.0.10.tar.gz
 WORKDIR $PWD/temp/swig-3.0.10
-RUN sudo apt-get install -y libpcre3 libpcre3-dev alsa-base pulseaudio libsox-fmt-all libatlas-base-dev
+RUN sudo apt-get install -y alsa-base pulseaudio libsox-fmt-all
 RUN ./configure --prefix=/usr --without-clisp --without-maximum-compile-warnings
+RUN apt-get -y update
+RUN apt-get install -y libpcre3 libpcre3-dev
 RUN sudo make && sudo make install
 RUN sudo install -v -m755 -d /usr/share/doc/swig-3.0.10
 RUN sudo cp -v -R Doc/* /usr/share/doc/swig-3.0.10
 WORKDIR $PWD/temp
+RUN apt-get install -y libatlas-base-dev
 RUN wget http://hahack-1253537070.file.myqcloud.com/misc/snowboy.tar.bz2
 RUN tar -xvjf snowboy.tar.bz2
 WORKDIR $PWD/temp/snowboy/swig/Python3
