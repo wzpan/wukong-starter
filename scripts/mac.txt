@@ -1,0 +1,24 @@
+RUN echo "正在为您安装wukong-starter"
+RUN if ! command -v brew > /dev/null; then /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; fi
+RUN if ! command -v python3 > /dev/null; then brew install python3; fi
+RUN if ! command -v git > /dev/null; then brew install git; fi
+RUN if ! brew info portaudio > /dev/null; then brew install portaudio; fi
+RUN if ! brew info sox > /dev/null; then brew install sox; fi
+RUN if ! brew info ffmpeg > /dev/null; then brew install ffmpeg; fi
+RUN if ! brew info swig > /dev/null; then brew install swig; fi
+RUN pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+RUN sudo pip3 install --upgrade pip
+RUN sudo pip3 install virtualenv
+RUN if [ ! -d $PWD/temp ]; then mkdir $PWD/temp; fi
+WORKDIR $PWD/temp
+RUN wget http://hahack-1253537070.file.myqcloud.com/misc/snowboy.tar.bz2
+RUN tar -xvjf snowboy.tar.bz2
+WORKDIR $PWD/temp/snowboy/swig/Python3
+RUN make
+RUN cp _snowboydetect.so ${PWD}/snowboy/
+RUN rm -rf $PWD/temp
+WORKDIR ${PWD}
+RUN virtualenv --no-site-packages env
+RUN ./start.sh && pip3 install pyaudio
+RUN echo "wukong-starter 已安装完成!"
+

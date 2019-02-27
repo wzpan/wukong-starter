@@ -22,6 +22,8 @@ cd wukong-starter
 
 安装过程中，因为需要安装一些工具，可能会提示你输入 sudo 密码。另外，安装 homebrew 时需要你按回车确认，照做即可。
 
+如果使用遇到问题，可以到 [issue 页](https://github.com/wzpan/wukong-starter/issues) 提交反馈。
+
 ## 启动开发环境
 
 ``` bash
@@ -30,23 +32,23 @@ cd wukong-starter
 
 之后就可以在这个环境中进行开发。
 
-## 整体说明
+## Linux 用户说明
 
-1. 如果使用遇到问题，可以到 [issue 页](https://github.com/wzpan/wukong-starter/issues) 提交反馈。
-2. 运行后如果出现 **No module named 'xxx’** 可能是有 pip3 的网络原因引起的，请切换到 ~/wukong-starter/ 目录后执行以下命令:
+Linux 用户如果在遇到这个错误：
 
-```shell
-pip3 install -r requirements.txt 
+``` 
+swig: error while loading shared libraries: libpcre.so.1: cannot open shared object file: No such file or directory
 ```
 
-如果是 win10 子系统，请执行以下命令:
+可以参考 [这篇文章](https://www.jianshu.com/p/3dbad433783f) ，创建一下软链接解决。
 
-```shell
-pip3 install --upgrade --ignore-installed -r requirements.txt
-```
+## Mac 用户说明
+
+如果遇到 brew 安装软件失败，可以尝试使用清华大学的 [Homebrew 镜像](https://mirror.tuna.tsinghua.edu.cn/help/homebrew/) 和 [Homebrew bottles 镜像](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/) 。
 
 ## Windows 用户说明
 
 在执行本脚本前，你需要先启动 pulseaudio-server 。
 
 下载解压 [pulseaudio.zip](http://hahack-1253537070.file.myqcloud.com/misc/pulseaudio.zip) 并在 CMD 里运行 bin 目录下的 pulseaudio.exe 。
+
