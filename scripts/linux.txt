@@ -1,0 +1,33 @@
+RUN echo "正在为您安装wukong-starter"
+RUN sudo sed -i 's/\/archive.ubuntu.com/\/mirrors.aliyun.com/g' /etc/apt/sources.list
+RUN sudo apt-get update && sudo apt-get upgrade -y
+RUN sudo apt-get install -y build-essential curl file git
+RUN if ! command -v python3 > /dev/null; then sudo apt-get install python3; fi
+RUN if [ ! -d $PWD/temp ]; then mkdir $PWD/temp; fi
+WORKDIR $PWD/temp
+RUN sudo apt-get install -y python3-pip python3-dev python3-all-dev sox ffmpeg
+RUN pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+RUN sudo pip3 install --upgrade pip
+RUN sudo pip3 install virtualenv
+RUN wget http://hahack-1253537070.file.myqcloud.com/misc/swig-3.0.10.tar.gz
+RUN tar xvf swig-3.0.10.tar.gz
+WORKDIR $PWD/temp/swig-3.0.10
+RUN sudo apt-get install -y alsa-base pulseaudio libsox-fmt-all
+RUN sudo apt-get install -y libpcre3 libpcre3-dev
+RUN ./configure --prefix=/usr --without-clisp --without-maximum-compile-warnings
+RUN sudo make && sudo make install
+RUN sudo install -v -m755 -d /usr/share/doc/swig-3.0.10
+RUN sudo cp -v -R Doc/* /usr/share/doc/swig-3.0.10
+WORKDIR $PWD/temp
+RUN sudo apt-get install -y libatlas-base-dev
+RUN wget http://hahack-1253537070.file.myqcloud.com/misc/snowboy.tar.bz2
+RUN tar -xvjf snowboy.tar.bz2
+WORKDIR $PWD/temp/snowboy/swig/Python3
+RUN make
+RUN cp _snowboydetect.so ${PWD}/snowboy/
+RUN rm -rf $PWD/temp
+WORKDIR ${PWD}
+RUN virtualenv --no-site-packages env
+RUN ./start.sh && pip3 install pyaudio
+RUN echo "wukong-starter 已安装完成!"
+

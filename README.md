@@ -2,7 +2,7 @@
 
 用于给 wukong-robot 提供一个初始化的教学用开发环境。
 
-主要参考了 [musistudio/wukong-robot-install-script](https://github.com/musistudio/wukong-robot-install-script)，但去除了 wukong-robot 本体。要安装 wukong-robot 的朋友请移步使用他的工具。
+主要借鉴了 docker 的思想以及 [musistudio/wukong-robot-install-script](https://github.com/musistudio/wukong-robot-install-script)，但去除了 wukong-robot 本体。要安装 wukong-robot 的朋友请移步使用他的工具。
 
 ## 适用系统 ##
 
@@ -12,64 +12,43 @@
 * Mac OS X
 * Windows 10 上的 WSL（Windows Subsystem for Linux）
 
-## 依赖 ##
-
-在使用本工具前，请先安装好依赖。不同的系统，在执行本工具前，依赖的不同。
-
-### Mac OS X ###
-
-* homebrew
+## 安装开发环境
 
 ``` bash
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-* git
-
-``` bash
-brew install git
-```
-
-### Ubuntu ###
-
-* git
-
-``` bash
-sudo apt-get install git
-```
-
-### WSL ###
-
-* git
-
-``` bash
-sudo apt-get install git
-```
-
-* pulseaudio-server
-
-下载解压 [pulseaudio.zip](http://hahack-1253537070.file.myqcloud.com/misc/pulseaudio.zip) 并在 CMD 里运行 bin 目录下的 pulseaudio.exe 。
-
-## 用法
-
-```shell
 git clone https://github.com/wzpan/wukong-starter.git
 cd wukong-starter
-sh ./install.sh
+./install.sh
 ```
 
-## 整体说明
+安装过程中，因为需要安装一些工具，可能会提示你输入 sudo 密码。另外，安装 homebrew 时需要你按回车确认，照做即可。
 
-1. 如果使用遇到问题，可以到 [issue 页](https://github.com/wzpan/wukong-starter/issues) 提交反馈。
-2. 运行后如果出现 **No module named 'xxx’** 可能是有 pip3 的网络原因引起的，请切换到 ~/wukong-starter/ 目录后执行以下命令:
+如果使用遇到问题，可以到 [issue 页](https://github.com/wzpan/wukong-starter/issues) 提交反馈。
 
-```shell
-sudo pip3 install -r requirements.txt 
+## 启动开发环境
+
+``` bash
+source ./start.sh
 ```
 
-如果是 win10 子系统，请执行以下命令:
+之后就可以在这个环境中进行开发。
 
-```shell
-sudo pip3 install --upgrade --ignore-installed -r requirements.txt
+## Linux 用户说明
+
+Linux 用户如果在遇到这个错误：
+
+``` 
+swig: error while loading shared libraries: libpcre.so.1: cannot open shared object file: No such file or directory
 ```
+
+可以参考 [这篇文章](https://www.jianshu.com/p/3dbad433783f) ，创建一下软链接解决。
+
+## Mac 用户说明
+
+如果遇到 brew 安装软件失败，可以尝试使用清华大学的 [Homebrew 镜像](https://mirror.tuna.tsinghua.edu.cn/help/homebrew/) 和 [Homebrew bottles 镜像](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew-bottles/) 。
+
+## Windows 用户说明
+
+在执行本脚本前，你需要先启动 pulseaudio-server 。
+
+下载解压 [pulseaudio.zip](http://hahack-1253537070.file.myqcloud.com/misc/pulseaudio.zip) 并在 CMD 里运行 bin 目录下的 pulseaudio.exe 。
 
