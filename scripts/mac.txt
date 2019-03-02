@@ -19,6 +19,5 @@ RUN cp _snowboydetect.so ${PWD}/snowboy/
 RUN rm -rf $PWD/temp
 WORKDIR ${PWD}
 RUN virtualenv --no-site-packages env
-RUN source ./start.sh && pip3 install pyaudio
 RUN echo "wukong-starter 已安装完成!"
-
+RUN echo "请执行 source start.sh 进入开发环境！"
