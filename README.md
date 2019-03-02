@@ -27,7 +27,7 @@ cd wukong-starter
 ## 启动开发环境
 
 ``` bash
-source ./start.sh
+source env/bin/activate
 ```
 
 之后就可以在这个环境中进行开发。
