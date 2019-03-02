@@ -27,10 +27,14 @@ cd wukong-starter
 ## 启动开发环境
 
 ``` bash
-source env/bin/activate
+source start.sh
 ```
 
-之后就可以在这个环境中进行开发。
+之后就可以在这个环境中进行开发。第一次启动时顺便装一下 `pyaudio`：
+
+``` bash
+pip3 install pyaudio
+```
 
 ## Linux 用户说明
 
