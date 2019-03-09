@@ -105,3 +105,4 @@ venv.bak/
 
 .install_cache
 .DS_Store
+.vscode
