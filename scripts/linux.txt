@@ -10,7 +10,7 @@ RUN sudo pip3 install --upgrade pip
 RUN pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 RUN sudo pip3 install virtualenv
 RUN wget http://hahack-1253537070.file.myqcloud.com/misc/swig-3.0.10.tar.gz
-RUN tar xvf swig-3.0.10.tar.gz
+RUN tar xvzf swig-3.0.10.tar.gz
 WORKDIR $PWD/temp/swig-3.0.10
 RUN sudo apt-get install -y alsa-base pulseaudio libsox-fmt-all
 RUN sudo apt-get install -y libpcre3 libpcre3-dev
