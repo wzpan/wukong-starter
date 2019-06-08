@@ -52,6 +52,8 @@ swig: error while loading shared libraries: libpcre.so.1: cannot open shared obj
 
 ## Windows 用户说明
 
+建议使用虚拟机安装 Ubuntu 来进行开发学习。如果你是这种方案，请关注上面的 [Linux用户说明](#linux-用户说明)。下面的说明仅适用于 Windows + WSL 的用户。
+
 在执行本脚本前，你需要先启动 pulseaudio-server 。
 
 下载解压 [pulseaudio.zip](http://hahack-1253537070.file.myqcloud.com/misc/pulseaudio.zip) 并在 CMD 里运行 bin 目录下的 pulseaudio.exe 。
