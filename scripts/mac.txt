@@ -2,6 +2,7 @@ RUN echo "正在为您安装wukong-starter"
 RUN if ! command -v brew > /dev/null; then /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; fi
 RUN if ! command -v python3 > /dev/null; then brew install python3; fi
 RUN if ! command -v git > /dev/null; then brew install git; fi
+RUN if ! brew info wget > /dev/null; then brew install wget; fi
 RUN if ! brew info portaudio > /dev/null; then brew install portaudio; fi
 RUN if ! brew info sox > /dev/null; then brew install sox; fi
 RUN if ! brew info ffmpeg > /dev/null; then brew install ffmpeg; fi
