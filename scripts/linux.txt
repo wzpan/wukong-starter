@@ -1,7 +1,7 @@
 RUN echo "正在为您安装wukong-starter"
 RUN sudo sed -i 's/\/cn.archive.ubuntu.com/\/mirrors.aliyun.com/g' /etc/apt/sources.list
 RUN sudo sed -i 's/\/archive.ubuntu.com/\/mirrors.aliyun.com/g' /etc/apt/sources.list
-RUN sudo apt-get update && sudo apt-get upgrade -y
+RUN sudo apt-get update && sudo apt-get upgrade -y --allow-unauthenticated
 RUN sudo apt-get install -y build-essential curl file git
 RUN if ! command -v python3 > /dev/null; then sudo apt-get install python3; fi
 RUN if [ ! -d $PWD/temp ]; then mkdir $PWD/temp; fi
